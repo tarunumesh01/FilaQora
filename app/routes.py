@@ -14,6 +14,7 @@ from flask import (
     render_template,
     request,
     url_for,
+    abort,
 )
 from flask_login import current_user, login_required, login_user, logout_user
 from sqlalchemy import func, or_
@@ -144,6 +145,16 @@ def _ensure_api_token(user: User) -> str:
     user.api_token = secrets.token_hex(24)
     db.session.commit()
     return user.api_token
+
+def admin_required(f):
+    @wraps(f)
+    @login_required
+    def wrapped(*args, **kwargs):
+        if not current_user.is_admin:
+            abort(403)
+        return f(*args, **kwargs)
+
+    return wrapped
 
 
 # ---------------------------------------------------------------------------
@@ -456,3 +467,31 @@ def api_delete_customer(id):
     db.session.delete(c)
     db.session.commit()
     return jsonify({"ok": True}), 200
+
+# ---------------------------------------------------------------------------
+# Admin
+# ---------------------------------------------------------------------------
+
+@main_bp.route("/admin")
+@admin_required
+def admin_dashboard():
+    users = User.query.order_by(User.created_at.desc()).all()
+
+    user_data = []
+
+    for user in users:
+        user_data.append({
+            "id": user.id,
+            "name": user.name or "—",
+            "email": user.email,
+            "is_admin": user.is_admin,
+            "created_at": user.created_at,
+            "customer_count": Customer.query.filter_by(
+                user_id=user.id
+            ).count(),
+        })
+
+    return render_template(
+        "admin.html",
+        users=user_data,
+    )

@@ -14,10 +14,11 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(255), unique=True, nullable=False, index=True)
     password_hash = db.Column(db.String(255), nullable=False)
     api_token = db.Column(db.String(64), unique=True, nullable=True, index=True)
+    is_admin = db.Column(db.Boolean, default=False, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     customers = db.relationship("Customer", backref="owner", lazy="dynamic", cascade="all, delete-orphan")
-
+    
     def check_password(self, password: str) -> bool:
         return check_password_hash(self.password_hash, password)
 

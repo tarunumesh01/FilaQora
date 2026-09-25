@@ -1,0 +1,323 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard - FilaQora{% endblock %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    <!-- ================================================================
+         HEADER
+    ================================================================= -->
+
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+
+        <div>
+            <div class="text-uppercase small text-muted fw-semibold">
+                Administration
+            </div>
+
+            <h1 class="h2 mb-1">
+                Admin Dashboard
+            </h1>
+
+            <p class="text-muted mb-0">
+                Manage and monitor FilaQora users.
+            </p>
+        </div>
+
+        <div>
+            <a
+                href="{{ url_for('main.dashboard') }}"
+                class="btn btn-outline-secondary"
+            >
+                Back to Dashboard
+            </a>
+        </div>
+
+    </div>
+
+
+    <!-- ================================================================
+         STATISTICS
+    ================================================================= -->
+
+    <div class="row g-3 mb-4">
+
+        <!-- Total Users -->
+        <div class="col-12 col-md-4">
+
+            <div class="card h-100 shadow-sm">
+
+                <div class="card-body">
+
+                    <div class="text-muted small text-uppercase fw-semibold mb-2">
+                        Total Users
+                    </div>
+
+                    <div class="display-6 fw-semibold">
+                        {{ users|length }}
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Administrators -->
+        <div class="col-12 col-md-4">
+
+            <div class="card h-100 shadow-sm">
+
+                <div class="card-body">
+
+                    <div class="text-muted small text-uppercase fw-semibold mb-2">
+                        Administrators
+                    </div>
+
+                    <div class="display-6 fw-semibold">
+                        {{ users|selectattr("is_admin")|list|length }}
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Customers -->
+        <div class="col-12 col-md-4">
+
+            <div class="card h-100 shadow-sm">
+
+                <div class="card-body">
+
+                    <div class="text-muted small text-uppercase fw-semibold mb-2">
+                        Total Customers
+                    </div>
+
+                    <div class="display-6 fw-semibold">
+                        {{ users|sum(attribute="customer_count") }}
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================================================
+         USER TABLE
+    ================================================================= -->
+
+    <div class="card shadow-sm">
+
+        <div class="card-header bg-transparent">
+
+            <div class="d-flex justify-content-between align-items-center">
+
+                <div>
+                    <h2 class="h5 mb-1">
+                        Registered Users
+                    </h2>
+
+                    <div class="small text-muted">
+                        All FilaQora accounts
+                    </div>
+                </div>
+
+                <span class="badge text-bg-secondary">
+                    {{ users|length }} users
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="card-body p-0">
+
+            {% if users %}
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead>
+                        <tr>
+
+                            <th class="ps-3">
+                                ID
+                            </th>
+
+                            <th>
+                                Name
+                            </th>
+
+                            <th>
+                                Email
+                            </th>
+
+                            <th>
+                                Customers
+                            </th>
+
+                            <th>
+                                Role
+                            </th>
+
+                            <th>
+                                Created
+                            </th>
+
+                        </tr>
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for user in users %}
+
+                        <tr>
+
+                            <!-- ID -->
+                            <td class="ps-3">
+                                <span class="text-muted">
+                                    #{{ user.id }}
+                                </span>
+                            </td>
+
+
+                            <!-- Name -->
+                            <td>
+
+                                <div class="fw-semibold">
+                                    {{ user.name }}
+                                </div>
+
+                            </td>
+
+
+                            <!-- Email -->
+                            <td>
+
+                                <a
+                                    href="mailto:{{ user.email }}"
+                                    class="text-decoration-none"
+                                >
+                                    {{ user.email }}
+                                </a>
+
+                            </td>
+
+
+                            <!-- Customer Count -->
+                            <td>
+
+                                <span class="badge text-bg-light border">
+                                    {{ user.customer_count }}
+                                </span>
+
+                            </td>
+
+
+                            <!-- Role -->
+                            <td>
+
+                                {% if user.is_admin %}
+
+                                    <span class="badge text-bg-dark">
+                                        Administrator
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge text-bg-secondary">
+                                        User
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- Created -->
+                            <td>
+
+                                {% if user.created_at %}
+
+                                    <span
+                                        class="text-muted"
+                                        title="{{ user.created_at.strftime('%Y-%m-%d %H:%M:%S') }}"
+                                    >
+                                        {{ user.created_at.strftime('%Y-%m-%d') }}
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="text-muted">
+                                        —
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            {% else %}
+
+            <div class="text-center py-5">
+
+                <h3 class="h5">
+                    No users found
+                </h3>
+
+                <p class="text-muted mb-0">
+                    There are currently no registered users.
+                </p>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================================================
+         ADMIN INFORMATION
+    ================================================================= -->
+
+    <div class="alert alert-info mt-4 mb-0">
+
+        <div class="fw-semibold mb-1">
+            Administrator access
+        </div>
+
+        <div class="small">
+            This page is restricted to accounts with administrator
+            privileges. Ordinary users will receive a 403 response if
+            they attempt to access this page directly.
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
