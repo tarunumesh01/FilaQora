@@ -1,0 +1,279 @@
+{% extends "base.html" %}
+{% block title %}Demo - FilaQora{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <!-- Header -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+        <div>
+            <p class="text-primary fw-semibold small text-uppercase mb-1" style="letter-spacing: 0.08em;">Live product demo</p>
+            <h1 class="h3 mb-1">See FilaQora in action</h1>
+            <p class="text-muted mb-0">
+                Real charts. Sample customers. Zero signup required — explore how a modern customer system feels.
+            </p>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+            <a class="btn btn-primary" href="{{ url_for('main.login') }}">Start free →</a>
+            <a class="btn btn-outline-secondary" href="https://github.com/tarunumesh01/FilaQora" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+            <a class="btn btn-outline-secondary" href="{{ url_for('main.index') }}">Home</a>
+        </div>
+    </div>
+
+    <!-- Trust / value strip -->
+    <div class="demo-trust-strip mb-4">
+        <div class="demo-trust-item">
+            <strong>Read-only sandbox</strong>
+            <span>Safe to click around</span>
+        </div>
+        <div class="demo-trust-item">
+            <strong>Live-style charts</strong>
+            <span>Same engine as production</span>
+        </div>
+        <div class="demo-trust-item">
+            <strong>Export &amp; API ready</strong>
+            <span>Unlock after login</span>
+        </div>
+        <div class="demo-trust-item">
+            <strong>Built for teams</strong>
+            <span>CRM · analytics · tags</span>
+        </div>
+    </div>
+
+    <!-- Info banner -->
+    <div class="alert alert-info d-flex align-items-start gap-2 mb-4" role="alert">
+        <span class="mt-1">ℹ️</span>
+        <div>
+            <strong>This is a preview</strong> with sample data.
+            Log in to manage real customers, export CSV/Excel, and use the full REST API.
+            Prefer the source? <a href="https://github.com/tarunumesh01/FilaQora" target="_blank" rel="noopener noreferrer">Open the GitHub repo</a>.
+        </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="row g-4 mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm demo-chart-card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h2 class="h5 mb-0">New customers per month</h2>
+                        <span class="badge bg-primary-subtle text-primary">Sample growth</span>
+                    </div>
+                    <p class="text-muted small mb-3">Spot seasonality and pipeline momentum at a glance — the same view your team gets after login.</p>
+                    <div class="chart-container">
+                        <canvas id="demoCustomersByMonth"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card shadow-sm h-100 demo-chart-card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h2 class="h5 mb-0">Top companies</h2>
+                        <span class="badge bg-primary-subtle text-primary">Concentration</span>
+                    </div>
+                    <p class="text-muted small mb-3">See which accounts dominate your book — useful for prioritising sales and support.</p>
+                    <div class="chart-container">
+                        <canvas id="demoTopCompanies"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card shadow-sm h-100 demo-chart-card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h2 class="h5 mb-0">Tag distribution</h2>
+                        <span class="badge bg-primary-subtle text-primary">Segments</span>
+                    </div>
+                    <p class="text-muted small mb-3">Lead, VIP, enterprise — segment customers without leaving the dashboard.</p>
+                    <div class="chart-container">
+                        <canvas id="demoTagDistribution"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sample customers table -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body p-0">
+            <div class="p-3 border-bottom d-flex flex-wrap justify-content-between align-items-center gap-2">
+                <div>
+                    <h2 class="h5 mb-0">Sample customer records</h2>
+                    <p class="text-muted small mb-0 mt-1">Search, tags, and detail views work the same way on real data.</p>
+                </div>
+                <span class="badge bg-secondary">Read-only</span>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Company</th>
+                            <th>Tags</th>
+                            <th>Created</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for c in sample_customers %}
+                        <tr>
+                            <td class="fw-semibold">{{ c.name }}</td>
+                            <td>{{ c.email }}</td>
+                            <td>{{ c.phone or "—" }}</td>
+                            <td>{{ c.company or "—" }}</td>
+                            <td>{{ c.tags or "—" }}</td>
+                            <td>{{ c.created_at }}</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="6" class="text-center text-muted py-4">No sample customers loaded.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- What you unlock -->
+    <div class="demo-unlock card shadow-sm mb-5">
+        <div class="card-body p-4">
+            <h2 class="h5 mb-3">What you unlock after login</h2>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="demo-unlock-item">
+                        <strong>Full CRM</strong>
+                        <span>Add, edit, search, and delete real customers.</span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="demo-unlock-item">
+                        <strong>CSV &amp; Excel export</strong>
+                        <span>Download filtered lists for sales or finance.</span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="demo-unlock-item">
+                        <strong>REST API</strong>
+                        <span>Bearer-token endpoints for your own apps.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom CTAs -->
+    <div class="demo-bottom-cta text-center mb-4">
+        <h2 class="h4 mb-2">Ready to run this on your data?</h2>
+        <p class="text-muted mb-4 mx-auto" style="max-width: 420px;">
+            Log in to use the full system, star the repo, or send a business enquiry for demos and partnerships.
+        </p>
+        <div class="d-flex flex-wrap justify-content-center gap-2">
+            <a class="btn btn-primary btn-lg" href="{{ url_for('main.login') }}">
+                Login / Get started →
+            </a>
+            <a class="btn btn-outline-primary btn-lg" href="https://github.com/tarunumesh01/FilaQora" target="_blank" rel="noopener noreferrer">
+                GitHub repository
+            </a>
+            <a class="btn btn-outline-secondary btn-lg" href="mailto:tarunumesh23@gmail.com?subject=FilaQora%20Business%20Enquiry">
+                Business enquiry
+            </a>
+        </div>
+    </div>
+</div>
+
+<script id="dashboard-data" type="application/json">
+{{ {
+    "month_labels": month_labels,
+    "month_counts": month_counts,
+    "company_labels": company_labels,
+    "company_counts": company_counts,
+    "tag_labels": tag_labels,
+    "tag_counts": tag_counts
+}|tojson }}
+</script>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const dataEl = document.getElementById("dashboard-data");
+    if (!dataEl) return;
+
+    const data = JSON.parse(dataEl.textContent);
+
+    const ctx1 = document.getElementById("demoCustomersByMonth");
+    if (ctx1) {
+        new Chart(ctx1, {
+            type: "bar",
+            data: {
+                labels: data.month_labels,
+                datasets: [{
+                    label: "New customers",
+                    data: data.month_counts,
+                    backgroundColor: "rgba(37, 99, 235, 0.75)",
+                    borderRadius: 6,
+                    maxBarThickness: 48
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { beginAtZero: true, ticks: { precision: 0 }, grid: { color: "rgba(148,163,184,0.15)" } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+    }
+
+    const ctx2 = document.getElementById("demoTopCompanies");
+    if (ctx2) {
+        new Chart(ctx2, {
+            type: "doughnut",
+            data: {
+                labels: data.company_labels,
+                datasets: [{
+                    data: data.company_counts,
+                    backgroundColor: ["#2563eb", "#38bdf8", "#6366f1", "#8b5cf6", "#a855f7"],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: "bottom" } },
+                cutout: "55%"
+            }
+        });
+    }
+
+    const ctx3 = document.getElementById("demoTagDistribution");
+    if (ctx3) {
+        new Chart(ctx3, {
+            type: "pie",
+            data: {
+                labels: data.tag_labels,
+                datasets: [{
+                    data: data.tag_counts,
+                    backgroundColor: ["#22c55e", "#f59e0b", "#ef4444", "#2563eb"],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: "bottom" } }
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

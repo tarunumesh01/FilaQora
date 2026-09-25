@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}Customers - FilaQora{% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+    <div>
+        <h1 class="h3 mb-1">Customers</h1>
+        <p class="text-muted mb-0">Manage your customer records.</p>
+    </div>
+    <a class="btn btn-primary" href="{{ url_for('main.customer_new') }}">+ Add Customer</a>
+</div>
+
+<form class="row g-2 mb-3" method="get" action="{{ url_for('main.customers') }}">
+    <div class="col-md-8">
+        <input class="form-control" name="q" value="{{ q }}" placeholder="Search name, email, or company">
+    </div>
+    <div class="col-auto">
+        <button class="btn btn-outline-primary" type="submit">Search</button>
+    </div>
+    <div class="col-auto">
+        <a class="btn btn-outline-secondary" href="{{ url_for('main.customers') }}">Clear</a>
+    </div>
+</form>
+
+<div class="d-flex justify-content-between align-items-center mb-2">
+    <small class="text-muted">{{ pagination.total }} customer(s) found</small>
+    <div class="btn-group">
+        <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('main.export', q=q, format='csv') }}">CSV</a>
+        <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('main.export', q=q, format='xlsx') }}">Excel</a>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Company</th>
+                    <th>Tags</th>
+                    <th>Created</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for customer in pagination.items %}
+                <tr>
+                    <td class="fw-semibold">{{ customer.name }}</td>
+                    <td>{{ customer.email }}</td>
+                    <td>{{ customer.phone or "—" }}</td>
+                    <td>{{ customer.company or "—" }}</td>
+                    <td>{{ customer.tags or "—" }}</td>
+                    <td>{{ customer.created_at.strftime("%Y-%m-%d") if customer.created_at else "—" }}</td>
+                    <td class="text-end">
+                        <a class="btn btn-sm btn-outline-primary" href="{{ url_for('main.customer_detail', id=customer.id) }}">View</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7" class="text-center text-muted py-5">No customers found.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% if pagination.pages > 1 %}
+<nav class="mt-4" aria-label="Customer pages">
+    <ul class="pagination justify-content-center">
+        <li class="page-item {% if not pagination.has_prev %}disabled{% endif %}">
+            <a class="page-link" href="{{ url_for('main.customers', q=q, page=pagination.prev_num) }}">Previous</a>
+        </li>
+        {% for p in pagination.iter_pages(left_edge=1, left_current=1, right_current=1, right_edge=1) %}
+            {% if p %}
+                <li class="page-item {% if p == pagination.page %}active{% endif %}">
+                    <a class="page-link" href="{{ url_for('main.customers', q=q, page=p) }}">{{ p }}</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled"><span class="page-link">…</span></li>
+            {% endif %}
+        {% endfor %}
+        <li class="page-item {% if not pagination.has_next %}disabled{% endif %}">
+            <a class="page-link" href="{{ url_for('main.customers', q=q, page=pagination.next_num) }}">Next</a>
+        </li>
+    </ul>
+</nav>
+{% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,455 @@
+{% extends "base.html" %}
+
+{% block title %}FilaQora{% endblock %}
+
+{% block content %}
+
+<div class="cms-home">
+
+<!-- =====================================================
+     HERO
+     ===================================================== -->
+
+<section class="cms-hero">
+
+    <div class="hero-background"></div>
+
+    <div class="container">
+
+        <div class="row align-items-center gy-5">
+
+            <!-- Hero text -->
+
+            <div class="col-lg-7">
+
+                <div class="hero-eyebrow">
+                    <span class="eyebrow-dot"></span>
+                    CUSTOMER MANAGEMENT
+                </div>
+
+                <h1 class="hero-title">
+                    FilaQora
+                    <span>One powerful system.</span>
+                </h1>
+
+                <p class="hero-description">
+                    Organize customer information, monitor your data,
+                    understand your business, and keep everything
+                    accessible from one centralized management system.
+                </p>
+
+                <div class="hero-actions">
+
+                    <a
+                        href="{{ url_for('main.dashboard') }}"
+                        class="cms-btn cms-btn-primary"
+                    >
+                        Open Dashboard
+                        <span>→</span>
+                    </a>
+
+                    <a
+                        href="{{ url_for('main.customers') }}"
+                        class="cms-btn cms-btn-secondary"
+                    >
+                        View Customers
+                    </a>
+
+                    <a
+                        href="{{ url_for('main.demo') }}"
+                        class="cms-btn cms-btn-secondary"
+                    >
+                        View Demo
+                    </a>
+
+                </div>
+
+                <div class="hero-trust">
+
+                    <span>✓</span>
+                    Centralized customer data
+                    
+                    <span>✓</span>
+                    Analytics dashboard
+                    
+                    <span>✓</span>
+                    CSV & Excel export
+
+                </div>
+
+            </div>
+
+
+            <!-- Dashboard visual -->
+
+            <div class="col-lg-5">
+
+                <div class="hero-dashboard">
+
+                    <div class="dashboard-window">
+
+                        <div class="window-header">
+
+                            <div class="window-controls">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+
+                            <div class="window-title">
+                                Customer Overview
+                            </div>
+
+                            <div class="window-status">
+                                <span></span>
+                                Live
+                            </div>
+
+                        </div>
+
+
+                        <div class="window-content">
+
+                            <div class="mini-stat-grid">
+
+                                <div class="mini-stat">
+
+                                    <div class="mini-stat-label">
+                                        Customers
+                                    </div>
+
+                                    <div class="mini-stat-value">
+                                        1,284
+                                    </div>
+
+                                    <div class="mini-stat-growth">
+                                        +12.5%
+                                    </div>
+
+                                </div>
+
+
+                                <div class="mini-stat">
+
+                                    <div class="mini-stat-label">
+                                        Companies
+                                    </div>
+
+                                    <div class="mini-stat-value">
+                                        86
+                                    </div>
+
+                                    <div class="mini-stat-growth">
+                                        +8.4%
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="mini-chart">
+
+                                <div class="mini-chart-header">
+
+                                    <span>
+                                        Customer Growth
+                                    </span>
+
+                                    <small>
+                                        Last 12 months
+                                    </small>
+
+                                </div>
+
+                                <div class="chart-line">
+
+                                    <span style="height: 30%"></span>
+                                    <span style="height: 42%"></span>
+                                    <span style="height: 37%"></span>
+                                    <span style="height: 51%"></span>
+                                    <span style="height: 58%"></span>
+                                    <span style="height: 65%"></span>
+                                    <span style="height: 72%"></span>
+                                    <span style="height: 82%"></span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="mini-customers">
+
+                                <div class="mini-customer">
+                                    <span class="customer-avatar">JD</span>
+
+                                    <div>
+                                        <strong>John Doe</strong>
+                                        <small>Acme Corporation</small>
+                                    </div>
+
+                                    <span class="customer-status">
+                                        Active
+                                    </span>
+                                </div>
+
+
+                                <div class="mini-customer">
+                                    <span class="customer-avatar">AS</span>
+
+                                    <div>
+                                        <strong>Alex Smith</strong>
+                                        <small>Northstar Labs</small>
+                                    </div>
+
+                                    <span class="customer-status">
+                                        Active
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FEATURES
+     ===================================================== -->
+
+<section class="cms-features">
+
+    <div class="container">
+
+        <div class="section-heading text-center">
+
+            <div class="section-eyebrow">
+                SYSTEM CAPABILITIES
+            </div>
+
+            <h2>
+                Built for growing teams
+            </h2>
+
+            <p>
+                From lead capture to analytics and integrations —
+                everything you need to run a modern customer operation.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <div class="col-md-6 col-xl-4">
+                <div class="cms-feature-card">
+                    <div class="feature-number">01</div>
+                    <div class="feature-icon">👥</div>
+                    <h3>Customer CRM</h3>
+                    <p>
+                        Centralize names, contacts, companies, and tags.
+                        Search, filter, and update records in seconds.
+                    </p>
+                    <a href="{{ url_for('main.customers') }}" class="feature-link">Manage customers →</a>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xl-4">
+                <div class="cms-feature-card">
+                    <div class="feature-number">02</div>
+                    <div class="feature-icon">📊</div>
+                    <h3>Live Analytics</h3>
+                    <p>
+                        Real-time charts for growth, top companies, and
+                        tag distribution so you spot trends early.
+                    </p>
+                    <a href="{{ url_for('main.dashboard') }}" class="feature-link">View dashboard →</a>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xl-4">
+                <div class="cms-feature-card">
+                    <div class="feature-number">03</div>
+                    <div class="feature-icon">⚡</div>
+                    <h3>Instant Export</h3>
+                    <p>
+                        Download filtered CSV or Excel reports for
+                        sales, finance, or external tools — anytime.
+                    </p>
+                    <a href="{{ url_for('main.export') }}" class="feature-link">Export data →</a>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xl-4">
+                <div class="cms-feature-card">
+                    <div class="feature-number">04</div>
+                    <div class="feature-icon">🔌</div>
+                    <h3>REST API</h3>
+                    <p>
+                        Secure Bearer-token API for create, read,
+                        update, delete — integrate with your stack.
+                    </p>
+                    <a href="{{ url_for('main.api_docs') }}" class="feature-link">API docs →</a>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xl-4">
+                <div class="cms-feature-card">
+                    <div class="feature-number">05</div>
+                    <div class="feature-icon">🏷️</div>
+                    <h3>Smart Tags</h3>
+                    <p>
+                        Segment leads, VIPs, and enterprise accounts
+                        with flexible tags for sharper targeting.
+                    </p>
+                    <a href="{{ url_for('main.customers') }}" class="feature-link">Explore tags →</a>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xl-4">
+                <div class="cms-feature-card">
+                    <div class="feature-number">06</div>
+                    <div class="feature-icon">🔒</div>
+                    <h3>Secure Access</h3>
+                    <p>
+                        Authenticated sessions, profile controls, and
+                        role-ready structure for business use.
+                    </p>
+                    <a href="{{ url_for('main.login') }}" class="feature-link">Get started →</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="biz-value-strip">
+            <div class="biz-value-item">
+                <strong>Real-time</strong>
+                <span>Live dashboard &amp; charts</span>
+            </div>
+            <div class="biz-value-item">
+                <strong>API-first</strong>
+                <span>Integrate in minutes</span>
+            </div>
+            <div class="biz-value-item">
+                <strong>Export-ready</strong>
+                <span>CSV &amp; Excel anytime</span>
+            </div>
+            <div class="biz-value-item">
+                <strong>Team-ready</strong>
+                <span>Secure login &amp; profiles</span>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     BUSINESS ENQUIRY
+     ===================================================== -->
+
+<section class="cms-contact">
+    <div class="container">
+        <div class="contact-panel">
+            <div class="contact-copy">
+                <div class="section-eyebrow">BUSINESS ENQUIRY</div>
+                <h2>Partner with FilaQora</h2>
+                <p>
+                    A custom customer management system you can deploy,
+                    extend, or white-label. Explore the source, request a demo,
+                    or discuss a partnership — we respond within one business day.
+                </p>
+                <ul class="contact-points">
+                    <li>Open-source style repo on GitHub</li>
+                    <li>Custom API &amp; data workflows</li>
+                    <li>Partnership &amp; white-label options</li>
+                </ul>
+            </div>
+            <div class="contact-actions">
+                <a class="cms-btn cms-btn-primary contact-github"
+                   href="https://github.com/tarunumesh01/FilaQora"
+                   target="_blank" rel="noopener noreferrer">
+                    View repository on GitHub
+                </a>
+                <a class="cms-btn cms-btn-secondary contact-email"
+                   href="mailto:tarunumesh23@gmail.com?subject=FilaQora%20Business%20Enquiry">
+                    Email: tarunumesh23@gmail.com
+                </a>
+                <a class="cms-btn cms-btn-secondary contact-linkedin"
+                   href="https://www.linkedin.com/in/tarun-u-1020423ba/"
+                   target="_blank" rel="noopener noreferrer">
+                    LinkedIn profile →
+                </a>
+                <p class="contact-note">Source, demos &amp; business enquiries — all in one place.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- =====================================================
+     CTA
+     ===================================================== -->
+
+<section class="cms-cta">
+
+    <div class="container">
+
+        <div class="cta-panel">
+
+            <div>
+
+                <div class="section-eyebrow">
+                    GET STARTED
+                </div>
+
+                <h2>
+                    Ready to run your customer ops?
+                </h2>
+
+                <p>
+                    Open the dashboard, explore the demo, or
+                    send a business enquiry — your choice.
+                </p>
+
+            </div>
+
+            <div class="cta-actions">
+
+                <a
+                    href="{{ url_for('main.dashboard') }}"
+                    class="cms-btn cms-btn-primary"
+                >
+                    Open Dashboard →
+                </a>
+
+                <a
+                    href="mailto:tarunumesh23@gmail.com?subject=FilaQora%20Business%20Enquiry"
+                    class="cms-btn cms-btn-secondary"
+                >
+                    Business Enquiry
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</div>
+
+{% endblock %}

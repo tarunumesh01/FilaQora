@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}API Docs - FilaQora{% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="mb-4">
+    <h1 class="h3">REST API</h1>
+    <p class="text-muted">All API endpoints require a Bearer token.</p>
+</div>
+
+<div class="alert alert-secondary">
+    <code>Authorization: Bearer YOUR_API_TOKEN</code>
+</div>
+
+<div class="card shadow-sm mb-3">
+    <div class="card-body">
+        <h2 class="h5">GET /api/customers</h2>
+        <p>List customers. Optional query parameters: <code>q</code>, <code>page</code>, <code>per_page</code>.</p>
+        <pre><code>{
+  "items": [],
+  "page": 1,
+  "pages": 1,
+  "total": 0
+}</code></pre>
+    </div>
+</div>
+
+<div class="card shadow-sm mb-3">
+    <div class="card-body">
+        <h2 class="h5">GET /api/customers/&lt;id&gt;</h2>
+        <p>Return one customer.</p>
+    </div>
+</div>
+
+<div class="card shadow-sm mb-3">
+    <div class="card-body">
+        <h2 class="h5">POST /api/customers</h2>
+        <p>Create a customer.</p>
+        <pre><code>{
+  "name": "Jane Doe",
+  "email": "jane@example.com",
+  "phone": "1234567890",
+  "company": "Example Ltd",
+  "tags": "lead,vip"
+}</code></pre>
+    </div>
+</div>
+
+<div class="card shadow-sm mb-3">
+    <div class="card-body">
+        <h2 class="h5">PUT /api/customers/&lt;id&gt;</h2>
+        <p>Update any supplied customer fields.</p>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h2 class="h5">DELETE /api/customers/&lt;id&gt;</h2>
+        <p>Delete a customer. Returns HTTP 200 on success.</p>
+    </div>
+</div>
+</div>
+{% endblock %}

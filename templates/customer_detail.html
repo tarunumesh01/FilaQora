@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Customer #{{ customer.id }} - FilaQora{% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2 mb-4">
+    <div>
+        <h1 class="h3 mb-1">{{ customer.name }}</h1>
+        <p class="text-muted mb-0">Customer #{{ customer.id }}</p>
+    </div>
+    <a class="btn btn-outline-secondary" href="{{ url_for('main.customers') }}">Back to Customers</a>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body p-4">
+        <form method="post">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Name *</label>
+                    <input class="form-control" name="name" required value="{{ form_data.get('name', '') }}">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Email *</label>
+                    <input class="form-control" type="email" name="email" required value="{{ form_data.get('email', '') }}">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Phone</label>
+                    <input class="form-control" name="phone" value="{{ form_data.get('phone', '') }}">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Company</label>
+                    <input class="form-control" name="company" value="{{ form_data.get('company', '') }}">
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Tags</label>
+                    <input class="form-control" name="tags" value="{{ form_data.get('tags', '') }}">
+                </div>
+                <div class="col-12">
+                    <p class="small text-muted mb-0">
+                        Created:
+                        {{ customer.created_at.strftime("%Y-%m-%d %H:%M:%S") if customer.created_at else "—" }}
+                    </p>
+                </div>
+                <div class="col-12 d-flex flex-wrap gap-2">
+                    <button class="btn btn-primary" type="submit">Save Changes</button>
+                    <button class="btn btn-outline-danger js-confirm-delete"
+                            type="submit"
+                            formaction="{{ url_for('main.customer_delete', id=customer.id) }}"
+                            formmethod="post"
+                            data-confirm="Delete this customer permanently?">
+                        Delete Customer
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+{% endblock %}

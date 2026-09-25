@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - FilaQora{% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="mb-4">
+    <h1 class="h3 mb-1">Dashboard</h1>
+    <p class="text-muted mb-0">Customer growth, company concentration, and tag distribution.</p>
+</div>
+
+<div class="row g-4">
+    <div class="col-12">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="h5">New customers per month</h2>
+                <div class="chart-container">
+                    <canvas id="customersByMonth"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h2 class="h5">Top companies</h2>
+                <div class="chart-container">
+                    <canvas id="topCompanies"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h2 class="h5">Tag distribution</h2>
+                <div class="chart-container">
+                    <canvas id="tagDistribution"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="dashboard-data" type="application/json">
+{{ {
+    "month_labels": month_labels,
+    "month_counts": month_counts,
+    "company_labels": company_labels,
+    "company_counts": company_counts,
+    "tag_labels": tag_labels,
+    "tag_counts": tag_counts
+}|tojson }}
+</script>
+</div>
+{% endblock %}

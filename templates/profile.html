@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block title %}Profile - FilaQora{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2 mb-4">
+        <div>
+            <h1 class="h3 mb-1">My Profile</h1>
+            <p class="text-muted mb-0">Account details and settings</p>
+        </div>
+        <a class="btn btn-outline-secondary" href="{{ url_for('main.dashboard') }}">Back to Dashboard</a>
+    </div>
+
+    <div class="row g-4">
+        <!-- Profile card -->
+        <div class="col-lg-5">
+            <div class="card shadow-sm h-100">
+                <div class="card-body p-4 text-center">
+                    <div class="profile-avatar mb-3">
+                        {{ current_user.name[0]|upper if current_user.name else current_user.email[0]|upper }}
+                    </div>
+                    <h2 class="h5 mb-1">{{ current_user.name or "User" }}</h2>
+                    <p class="text-muted mb-3">{{ current_user.email }}</p>
+                    <span class="badge bg-primary-subtle text-primary px-3 py-2">
+                        Active account
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Account info / edit -->
+        <div class="col-lg-7">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h2 class="h5 mb-4">Account information</h2>
+
+                    <form method="post" action="{{ url_for('main.profile') }}">
+                        {% if csrf_token is defined %}
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        {% endif %}
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label" for="name">Full name</label>
+                                <input class="form-control" id="name" name="name"
+                                       value="{{ form_data.get('name', current_user.name or '') if form_data is defined else (current_user.name or '') }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label" for="email">Email</label>
+                                <input class="form-control" type="email" id="email" name="email"
+                                       value="{{ form_data.get('email', current_user.email) if form_data is defined else current_user.email }}"
+                                       required>
+                            </div>
+                            <div class="col-12">
+                                <hr class="my-2">
+                                <p class="small text-muted mb-3">Leave password fields blank to keep your current password.</p>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label" for="password">New password</label>
+                                <input class="form-control" type="password" id="password" name="password"
+                                       placeholder="••••••••" autocomplete="new-password">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label" for="password_confirm">Confirm new password</label>
+                                <input class="form-control" type="password" id="password_confirm" name="password_confirm"
+                                       placeholder="••••••••" autocomplete="new-password">
+                            </div>
+                            <div class="col-12 d-flex gap-2 mt-3">
+                                <button class="btn btn-primary" type="submit">Save changes</button>
+                                <a class="btn btn-outline-secondary" href="{{ url_for('main.profile') }}">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card shadow-sm mt-4">
+                <div class="card-body p-4">
+                    <h2 class="h5 mb-3">API access</h2>
+                    <p class="text-muted small mb-2">
+                        Use this Bearer token with <code>/api/*</code> endpoints.
+                    </p>
+                    <div class="input-group mb-2">
+                        <input class="form-control font-monospace small" readonly
+                               value="{{ api_token if api_token is defined else '' }}"
+                               id="apiTokenField">
+                        <button class="btn btn-outline-secondary" type="button"
+                                onclick="navigator.clipboard.writeText(document.getElementById('apiTokenField').value)">
+                            Copy
+                        </button>
+                    </div>
+                    <p class="small text-muted mb-0">
+                        Header: <code>Authorization: Bearer YOUR_API_TOKEN</code>
+                    </p>
+                </div>
+            </div>
+
+            <div class="card shadow-sm mt-4">
+                <div class="card-body p-4">
+                    <h2 class="h5 mb-3">Session</h2>
+                    <p class="text-muted small mb-3">
+                        You are currently signed in. Logging out will end this session on this device.
+                    </p>
+                    <a class="btn btn-outline-danger" href="{{ url_for('main.logout') }}">
+                        Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
