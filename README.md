@@ -952,42 +952,6 @@ https://github.com/tarunumesh01/FilaQora
 
 ---
 
-# Screenshots
-
-Add project screenshots here after placing them inside a `screenshots/` directory.
-
-### Dashboard
-
-```markdown
-![FilaQora Dashboard](screenshots/dashboard.png)
-```
-
-### Customer Management
-
-```markdown
-![Customer Management](screenshots/customers.png)
-```
-
-### Customer Details
-
-```markdown
-![Customer Details](screenshots/customer-details.png)
-```
-
-### Admin Dashboard
-
-```markdown
-![Admin Dashboard](screenshots/admin.png)
-```
-
-### API Documentation
-
-```markdown
-![API Documentation](screenshots/api-docs.png)
-```
-
----
-
 # License
 
 This project is developed for **educational, academic, internship, and portfolio purposes**.
