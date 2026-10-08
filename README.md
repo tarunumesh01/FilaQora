@@ -1,6 +1,6 @@
 # FilaQora
 
-**FilaQora** is a web-based Customer Relationship Management (CRM) and customer management system developed using **Python, Flask, SQLAlchemy, PostgreSQL/SQLite, HTML5, CSS3, Bootstrap, and JavaScript**.
+**FilaQora** is an web-based Customer Relationship Management (CRM) and customer management system developed using **Python, Flask, SQLAlchemy, PostgreSQL/SQLite, HTML5, CSS3, Bootstrap, and JavaScript**.
 
 The application provides a centralized platform for managing customers, viewing business analytics, searching customer records, exporting customer data, managing user accounts, and accessing customer information through a secure REST API.
 
